@@ -1,0 +1,18 @@
+{
+  "author": "Tom Hummel <tphummel@gmail.com>",
+  "name": "tetris-book",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tphummel/tetris-latex.git"
+  },
+  "dependencies": {
+    "mysql": "~2.0.0-alpha5",
+    "coffee-script": "~1.4.0"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
