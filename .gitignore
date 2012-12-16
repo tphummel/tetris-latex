@@ -6,3 +6,4 @@ config/db.coffee
 *.ilg
 *.d
 *.fls
+*.temp
