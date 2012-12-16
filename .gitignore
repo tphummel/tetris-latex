@@ -1,3 +1,7 @@
 *.log
 node_modules/
 config/db.coffee
+*.make
+*.idx
+*.ilg
+*.d
