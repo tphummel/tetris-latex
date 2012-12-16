@@ -3,6 +3,8 @@
 \usepackage{mathptmx}
 \usepackage{makeidx}
 \usepackage{longtable}
+\usepackage[titletoc]{appendix}
+
 %\usepackage{glossaries}
 %\usepackage[toc]{glossaries}
 \makeindex
@@ -146,11 +148,12 @@
     \chapter{Match Strength}
       % group streaks? -consec 3p matches with combined S ratio, 400 combined lines, consec matches without an individual S
     \chapter{Oddities}
-  \appendix
+  \begin{appendices}
     \chapter{Complete Match Transcript}
     \chapter{2004 Gaming Journal Excerpts}
     \chapter{Coding Journal Excerpts}
     \chapter{Web Resources}
+  \end{appendices}
   \clearpage
   \addcontentsline{toc}{part}{Index}
   \printindex
