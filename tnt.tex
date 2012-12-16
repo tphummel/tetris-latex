@@ -2,6 +2,7 @@
 %begin preamble - main document spec info goes here
 \usepackage{mathptmx}
 \usepackage{makeidx}
+\usepackage{longtable}
 %\usepackage{glossaries}
 %\usepackage[toc]{glossaries}
 \makeindex
@@ -52,7 +53,28 @@
     \chapter{Career Records}
       \section{Totals}
         \begin{center}
-          \begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}} | l | c || r | r | }
+          \begin{longtable}{ | l | c | r | r | }
+            \hline
+            \multicolumn{1}{|c|}{\textbf{Time (s)}} & 
+            \multicolumn{1}{c|}{\textbf{Triple chosen}} & 
+            \multicolumn{1}{c|}{\textbf{Header text}} & 
+            \multicolumn{1}{c|}{\textbf{Other feasible triples}} \\ \hline 
+            \endfirsthead
+            
+            \multicolumn{4}{c}%
+            {{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+            \hline \multicolumn{1}{|c|}{\textbf{Time (s)}} &
+            \multicolumn{1}{c|}{\textbf{Triple chosen}} &
+            \multicolumn{1}{c|}{\textbf{Header text}} & 
+            \multicolumn{1}{c|}{\textbf{Other feasible triples}} \\ \hline 
+            \endhead
+
+            \hline \multicolumn{4}{|r|}{{Continued on next page}} \\ \hline
+            \endfoot
+
+            \hline \hline
+            \endlastfoot
+            
             \hline
             label 1 & label 2 & label 3 & label a \\ 
             \hline
@@ -60,7 +82,43 @@
             \hline
             label 7 & label 8 & label 9 & label c \\
             \hline
-          \end{tabular*}
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+            label 7 & label 8 & label 9 & label c \\
+            \hline
+          \end{longtable}
         \end{center}
       \section{Month}
       \section{Day of Week}
