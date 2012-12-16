@@ -65,8 +65,8 @@
 \contentsline {section}{\numberline {23.6}Cameos}{59}
 \contentsline {chapter}{\numberline {24}Match Strength}{61}
 \contentsline {chapter}{\numberline {25}Oddities}{63}
-\contentsline {part}{VI\hspace {1em}Complete Match Transcript}{65}
-\contentsline {part}{VII\hspace {1em}2004 Gaming Journal Excerpts}{67}
-\contentsline {part}{VIII\hspace {1em}Coding Journal Excerpts}{69}
-\contentsline {part}{IX\hspace {1em}Web Resources}{71}
-\contentsline {part}{Index}{73}
+\contentsline {chapter}{Appendix \numberline {A}Complete Match Transcript}{65}
+\contentsline {chapter}{Appendix \numberline {B}2004 Gaming Journal Excerpts}{67}
+\contentsline {chapter}{Appendix \numberline {C}Coding Journal Excerpts}{69}
+\contentsline {chapter}{Appendix \numberline {D}Web Resources}{71}
+\contentsline {part}{Index}{72}
