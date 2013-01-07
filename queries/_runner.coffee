@@ -1,6 +1,7 @@
 walk = require 'walk'
 async = require 'async'
 _ = require "underscore"
+fs = require "fs"
 
 queryDirs = ['combined', 'individual']
 
@@ -64,10 +65,11 @@ async.forEachSeries queryDirs, (dir, forEachNext) ->
       latexTable = objectToTable 
         data: rows
         columns: query.columns
+
+      latexFile = "#{__dirname}/../parts/tables/" + stats.name.split(".coffee")[0] + ".tex"
       
-      console.log "rows: ", rows
-      console.log "latexTable: ", latexTable
-      next()
+      fs.writeFile latexFile, latexTable, "utf8", (err) ->
+        next()
   
   walker.on "end", ->
     console.log "all queries run in #{dir}"
