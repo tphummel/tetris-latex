@@ -14,6 +14,9 @@
   },
   "devDependencies": {},
   "optionalDependencies": {},
+  "scripts": {
+    "lists": "coffee queries/_runner"
+  },
   "engines": {
     "node": "*"
   }
