@@ -7,6 +7,7 @@ class Query
     @connection = mysql.createConnection db
     @connection.connect()
     @query = options.body or "SELECT 'this is the default query. pass a query body' FROM dual"
+    @columns = options.columns
   
   run: (done) ->
     @connection.query @query, (err, rows, fields) =>
