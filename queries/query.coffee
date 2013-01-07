@@ -10,14 +10,7 @@ class Query
   
   run: (done) ->
     @connection.query @query, (err, rows, fields) =>
-      console.log "err: ", err
-      console.log "rows: ", rows
-      console.log "fields: ", fields
-      if err?
-        done err
-      else
-        done rows
-      
+      done err, rows
       @connection.end()
 
 module.exports = Query
