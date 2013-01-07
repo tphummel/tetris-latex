@@ -11,5 +11,9 @@ mostLines = new Query
     GROUP  BY GET_PLAYER_NAME(p.playerid,'','')
     ORDER  BY nlines DESC
   "
+  columns: [
+    {title: "Name", property: "name", align: "l"}
+    {title: "Lines", property: "nlines", align: "l"}
+  ]
 
 module.exports = mostLines
