@@ -12,47 +12,45 @@ objectToTable = (opts) ->
   data = opts.data
   columns = opts.columns
   
+  warning = "% auto compiled by tom\n\n"
+  
   aligns = _.pluck columns, "align"
   columnAligns = "| " + aligns.join(" | ") + " |"
   
-  preamble = "\\begin{center}\\begin{longtable}{ #{columnAligns} }\\hline"
+  preamble = "\\begin{center} \n \\begin{longtable}{ #{columnAligns} } \n \\hline \n"
   
   for column, i in columns
     align = if i is 0 then "|c|" else "c|"
     preamble += "\\multicolumn{1}{#{align}}{\\textbf{#{column.title}}}"
-    preamble += " & " unless i is columns.length - 1
+    preamble += " & \n" unless i is columns.length - 1
     
-  preamble += "\\\\ \\hline \\endfirsthead"
+  preamble += "\\\\ \\hline \n \\endfirsthead \n\n"
   
-  longtable = "
-    \\multicolumn{#{columns.length}}{c}%
-    {{\\bfseries \\tablename\ \\thetable{} #{longtableHeadText}}} \\\\
-    \\hline "
+  longtable = "\\multicolumn{#{columns.length}}{c} \n"
+  longtable += "{{\\bfseries \\tablename \\thetable{} #{longtableHeadText}}} \\\\ \n"
+  longtable += "\\hline \n"
     
   for column, i in columns
     align = if i is 0 then "|c|" else "c|"
-    longtable += "\\multicolumn{1}{#{align}}{\\textbf{#{column.title}}}"
-    longtable += " & " unless i is columns.length - 1
+    longtable += "\\multicolumn{1}{#{align}}{\\textbf{#{column.title}}} "
+    longtable += " & \n" unless i is columns.length - 1
   
-  longtable += "
-    \\\\ \\hline \\endhead
-    \\hline \\multicolumn{#{columns.length}}{|r|}{{#{longtableFootText}}} \\\\ \\hline
-    \\endfoot \\hline \\hline \\endlastfoot"
+  longtable += "\\\\ \\hline \n \\endhead \n\n"
+  longtable += "\\hline \\multicolumn{#{columns.length}}{|r|}{{#{longtableFootText}}} \\\\ \\hline \n"
+  longtable += "\\endfoot\n \\hline\n \\endlastfoot\n\n"
   
-  body = "\\hline"
-  console.log "data: ", data
+  body = "\\hline\n"
   for row in data
-    console.log "row: ", row
     for column, j in columns
-      console.log "j: ", j
-      console.log "column: ", column
       body += row[column.property]
-      body += if j is columns.length - 1 then " \\" else " & "
-    body += "\\hline"
+      body += if j is columns.length - 1 then " \\\\ \n" else " & "
+    body += "\\hline\n"
   
-  footer = "\\end{longtable} \\end{center}"
   
-  fullTable = preamble + longtable + body + footer
+  footer = "\n\n"
+  footer += "\\end{longtable}\n \\end{center}"
+  
+  fullTable = warning + preamble + longtable + body + footer
   return fullTable
   
 async.forEachSeries queryDirs, (dir, forEachNext) ->
@@ -66,9 +64,8 @@ async.forEachSeries queryDirs, (dir, forEachNext) ->
         data: rows
         columns: query.columns
 
-      latexFile = "#{__dirname}/../parts/tables/" + stats.name.split(".coffee")[0] + ".tex"
-      
-      fs.writeFile latexFile, latexTable, "utf8", (err) ->
+      fileName = "#{__dirname}/../parts/tables/" + stats.name.split(".coffee")[0] + ".tex"
+      fs.writeFile fileName, latexTable, "utf8", (err) ->
         next()
   
   walker.on "end", ->
