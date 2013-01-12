@@ -11,6 +11,7 @@
 
 fs            = require "fs"
 moment        = require "moment"
+_             = require "underscore"
 
 Query         = require "../query"
 toLatexTable  = require "../toLatexTable"
@@ -24,7 +25,7 @@ reports = [
     }
   ]
 
-columns = [
+allColumns = [
   {
     title: "Match ID"
     property: "id"
@@ -78,8 +79,8 @@ columns = [
   }
 ]
 
-applyColumnTemplates = (data) ->
-  for column in columns
+applyColumnTemplates = (data, activeColumns) ->
+  for column in activeColumns
     if column.template?
       for row in data
         row[column.property] = column.template row[column.property]
@@ -95,13 +96,16 @@ module.exports = (opts={}) ->
   opts.limit = 10
   
   fields = []
-  for column in columns
+  activeColumns = []
+  for column in allColumns
     if column.test?
-      fields.push column.sql if column.test opts
+      activeColumns.push column if column.test opts
     else
-      fields.push column.sql
+      activeColumns.push column
+  
+  fieldsSql = _.pluck activeColumns, "sql"
       
-  select = "SELECT " + (fields.join ", ")
+  select = "SELECT " + (fieldsSql.join ", ")
   from = "FROM playermatch p, tntmatch t"
   where = "WHERE t.matchid = p.matchid"
   limit = "LIMIT #{opts.limit}"
@@ -116,23 +120,20 @@ module.exports = (opts={}) ->
     fullQuery = [select, from, where, orderBy, limit].join " "
     
     console.log "fullQuery: ", fullQuery
+    
     query = new Query 
       body: fullQuery
     
     query.run (err, rows) ->
-      console.log "rows: ", rows
       
-      formattedRows = applyColumnTemplates rows
+      formattedRows = applyColumnTemplates rows, activeColumns
       # ties logic, # records, second order calculations
       
-      # convert rows to latex
       tableText = toLatexTable
         data: rows
-        columns: columns
-        
-      console.log "tableText: ", tableText
+        columns: activeColumns
       
-      file = opts.outFilePath + report.file + ".tex"
+      file = opts.outfilePath + report.file + ".tex"
       
       # row outfile
       fs.writeFileSync file, tableText, "utf8"
