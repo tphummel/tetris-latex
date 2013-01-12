@@ -32,41 +32,53 @@
 \contentsline {chapter}{\numberline {17}Career Records}{47}
 \contentsline {section}{\numberline {17.1}Totals}{47}
 \contentsline {section}{\numberline {17.2}Month}{47}
-\contentsline {section}{\numberline {17.3}Day of Week}{47}
+\contentsline {section}{\numberline {17.3}Day of Week}{48}
 \contentsline {chapter}{\numberline {18}Time Span Records}{49}
-\contentsline {section}{\numberline {18.1}Single Month}{49}
-\contentsline {section}{\numberline {18.2}Single Week}{49}
-\contentsline {section}{\numberline {18.3}Single Day}{49}
+\contentsline {section}{\numberline {18.1}Single 30-Day Span}{49}
+\contentsline {section}{\numberline {18.2}Single 14-Day Span}{49}
+\contentsline {section}{\numberline {18.3}Single 7-Day Span}{49}
+\contentsline {section}{\numberline {18.4}Single 5-Day Span}{49}
+\contentsline {section}{\numberline {18.5}Single 2-Day Span}{49}
+\contentsline {section}{\numberline {18.6}Single 1-Day Span}{49}
 \contentsline {chapter}{\numberline {19}Match Span Records}{51}
-\contentsline {section}{\numberline {19.1}25 Matches}{51}
-\contentsline {section}{\numberline {19.2}20 Matches}{51}
-\contentsline {section}{\numberline {19.3}15 Matches}{51}
-\contentsline {section}{\numberline {19.4}10 Matches}{51}
-\contentsline {section}{\numberline {19.5}5 Matches}{51}
-\contentsline {section}{\numberline {19.6}3 Matches}{51}
-\contentsline {section}{\numberline {19.7}2 Matches}{51}
+\contentsline {section}{\numberline {19.1}50 Matches}{51}
+\contentsline {section}{\numberline {19.2}25 Matches}{51}
+\contentsline {section}{\numberline {19.3}20 Matches}{51}
+\contentsline {section}{\numberline {19.4}15 Matches}{51}
+\contentsline {section}{\numberline {19.5}10 Matches}{51}
+\contentsline {section}{\numberline {19.6}5 Matches}{51}
+\contentsline {section}{\numberline {19.7}3 Matches}{51}
+\contentsline {section}{\numberline {19.8}2 Matches}{51}
 \contentsline {chapter}{\numberline {20}Match Streak Records}{53}
-\contentsline {chapter}{\numberline {21}Single Match Records}{55}
-\contentsline {chapter}{\numberline {22}The Locations}{57}
-\contentsline {section}{\numberline {22.1}Superlatives}{57}
-\contentsline {section}{\numberline {22.2}23C}{57}
-\contentsline {section}{\numberline {22.3}11H}{57}
-\contentsline {section}{\numberline {22.4}1217 Edinburgh}{57}
-\contentsline {section}{\numberline {22.5}425 Arrow Rte}{57}
-\contentsline {section}{\numberline {22.6}207E Burbank}{57}
-\contentsline {section}{\numberline {22.7}14211 Dickens}{57}
-\contentsline {section}{\numberline {22.8}Mt. Johnson}{57}
-\contentsline {chapter}{\numberline {23}The Players}{59}
-\contentsline {section}{\numberline {23.1}J.D.}{59}
-\contentsline {section}{\numberline {23.2}Dan}{59}
-\contentsline {section}{\numberline {23.3}Tom}{59}
-\contentsline {section}{\numberline {23.4}Jeran}{59}
-\contentsline {section}{\numberline {23.5}Ben}{59}
-\contentsline {section}{\numberline {23.6}Cameos}{59}
-\contentsline {chapter}{\numberline {24}Match Strength}{61}
-\contentsline {chapter}{\numberline {25}Oddities}{63}
-\contentsline {chapter}{Appendix \numberline {A}Complete Match Transcript}{65}
-\contentsline {chapter}{Appendix \numberline {B}2004 Gaming Journal Excerpts}{67}
-\contentsline {chapter}{Appendix \numberline {C}Coding Journal Excerpts}{69}
-\contentsline {chapter}{Appendix \numberline {D}Web Resources}{71}
-\contentsline {part}{Index}{72}
+\contentsline {chapter}{\numberline {21}Single-Match Performance Records}{55}
+\contentsline {section}{\numberline {21.1}4 Player}{55}
+\contentsline {section}{\numberline {21.2}3 Player}{55}
+\contentsline {section}{\numberline {21.3}2 Player}{55}
+\contentsline {chapter}{\numberline {22}Overall}{57}
+\contentsline {chapter}{\numberline {23}The Locations}{59}
+\contentsline {section}{\numberline {23.1}Superlatives}{59}
+\contentsline {section}{\numberline {23.2}23C}{59}
+\contentsline {section}{\numberline {23.3}11H}{59}
+\contentsline {section}{\numberline {23.4}1217 Edinburgh}{59}
+\contentsline {section}{\numberline {23.5}425 Arrow Rte}{59}
+\contentsline {section}{\numberline {23.6}207E Burbank}{59}
+\contentsline {section}{\numberline {23.7}14211 Dickens}{59}
+\contentsline {section}{\numberline {23.8}Mt. Johnson}{59}
+\contentsline {chapter}{\numberline {24}The Players}{61}
+\contentsline {section}{\numberline {24.1}J.D.}{61}
+\contentsline {section}{\numberline {24.2}Dan}{61}
+\contentsline {section}{\numberline {24.3}Tom}{61}
+\contentsline {section}{\numberline {24.4}Jeran}{61}
+\contentsline {section}{\numberline {24.5}Ben}{61}
+\contentsline {section}{\numberline {24.6}Guest}{61}
+\contentsline {chapter}{\numberline {25}Match Strength}{63}
+\contentsline {chapter}{\numberline {26}Lines Won}{65}
+\contentsline {chapter}{\numberline {27}Elo Ratings}{67}
+\contentsline {chapter}{\numberline {28}Head to Head}{69}
+\contentsline {chapter}{\numberline {29}Daily Summaries}{71}
+\contentsline {chapter}{\numberline {30}Oddities}{73}
+\contentsline {chapter}{Appendix \numberline {A}Complete Match Transcript}{75}
+\contentsline {chapter}{Appendix \numberline {B}2004 Gaming Journal Excerpts}{77}
+\contentsline {chapter}{Appendix \numberline {C}Coding Journal Excerpts}{79}
+\contentsline {chapter}{Appendix \numberline {D}Web Resources}{81}
+\contentsline {part}{Index}{82}
