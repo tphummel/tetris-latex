@@ -6,11 +6,10 @@ class Query
   constructor: (options={}) ->
     @connection = mysql.createConnection db
     @connection.connect()
-    @query = options.body or "SELECT 'this is the default query. pass a query body' FROM dual"
-    @columns = options.columns
+    @body = options.body or "SELECT 'this is the default query. pass a query body' FROM dual"
   
   run: (done) ->
-    @connection.query @query, (err, rows, fields) =>
+    @connection.query @body, (err, rows, fields) =>
       done err, rows
       @connection.end()
 
