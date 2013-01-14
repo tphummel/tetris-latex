@@ -2,16 +2,23 @@ _       = require "underscore"
 fs      = require "fs"
 mkdirp  = require "mkdirp"
 
-majors =
-  all: 
+majors = [
+  {
+    name: "all"
     values: ["all"]
-  year: 
+  }
+  {
+    name: "year"
     sql: "YEAR(t.matchdate) = ?"
     values: [2004,2007,2008,2009,2010,2011,2012]
-  player: 
+  }
+  {
+    name: "player"
     sql: "GET_PLAYER_NAME(p.playerid,'','') = '?'"
-    values: ["Dan", "Tom", "JD", "Jeran", "Guest", "Spirk"]    
-  location: 
+    values: ["Dan", "Tom", "JD", "Jeran", "Guest", "Spirk"]
+  }
+  {
+    name: "location"
     sql: "GET_LOCATION_NAME(t.location, 'ADDY') = '?'"
     values: [
       "1217 (Pomona, CA)"
@@ -21,15 +28,29 @@ majors =
       "207E (Encino, CA)"
       "14211 (Sherman Oaks, CA)"
     ]
+  }
+]
 
-minors = 
-  all: 
+
+minors = [
+  {
+    name: "all"
     values: ["all"]
-  # month: ["January", "February", "March", "April", "May", "June"]
-  # dom: []
-  # dow: 
+  }
+  # {
+  #   name: "month"
+  #   values: ["January", "February", "March", "April", "May", "June"]
+  # }
+  # {
+  #   name: "dom"
+  #   values: []
+  # }
+  # {
+  #   name: "dow"
   #   sql: "DAYNAME(t.matchdate) = '?'"
   #   values: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  # }
+]
 
 # dom = 1
 # while dom <= 31
@@ -45,7 +66,7 @@ game_types =
 outfile_path_root = "#{__dirname}/../parts/tables/"
 list_item_limit = 10
 
-for major_name, major of majors
+for major in majors
   sql = {}
   for major_value in major.values
     if major.sql
@@ -53,9 +74,13 @@ for major_name, major of majors
     else
       delete sql.major
     
-    for minor_name, minor of minors
+    for minor in minors
       
       for minor_value in minor.values
+        if minor.sql
+          sql.minor = minor.sql.replace "?", minor_value
+        else
+          delete sql.major
         
         for script in scripts
           script_filename = "#{__dirname}/individual/#{script}"
@@ -71,15 +96,22 @@ for major_name, major of majors
             
               sql_string = sql_pieces.join " AND "
             
-              path_pieces = [major_name, major_value, minor_name, minor_value, script, game_type+"p"]
+              path_pieces = [major.name, major_value, minor.name, minor_value, script, game_type+"p"]
               path = outfile_path_root + path_pieces.join "/"
-            
-              mkdirp path, (err) ->
-            
-                opts = 
-                  caption: caption
-                  where_sql_snippet: sql_string
-                  outfile_path: path
-                  limit: list_item_limit
-            
+              
+              opts = 
+                caption: caption
+                where_sql_snippet: sql_string
+                outfile_path: path
+                limit: list_item_limit
+              
+              exists = fs.existsSync path
+              
+              if exists
                 require(script_filename)(opts)
+              else
+                mkdirp path, (err) -> require(script_filename)(opts)
+            
+                  
+            
+                  
