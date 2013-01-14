@@ -1,14 +1,3 @@
-# params = 
-#   sort: "asc" or "desc"
-#   limit: 10
-#   conditions: {}
-  
-# conditions = [
-#   "p.lines >= 100"
-#   "p.wrank = GET_NUMPLAYERS_INMATCH(t.matchid)"
-#   "t.locationid = 1"
-#   ]
-
 fs            = require "fs"
 moment        = require "moment"
 _             = require "underscore"
@@ -88,13 +77,6 @@ applyColumnTemplates = (data, activeColumns) ->
 module.exports = (opts={}) ->
   # opts passed in from above could be player, location, year, month, dow
   
-  # cherrypicking my specific run
-  opts.numPlayers = 4
-  opts.playerId = 4 # tom
-  opts.locationId = null # all locations
-  opts.outfilePath = "#{__dirname}/../../parts/tables/"
-  opts.limit = 10
-  
   fields = []
   activeColumns = []
   for column in allColumns
@@ -115,11 +97,11 @@ module.exports = (opts={}) ->
     for cond in report.conditions
       where += " AND #{cond}"
     
+    where += " AND #{opts.where_sql_snippet}" if opts.where_sql_snippet
+    
     orderBy = "ORDER BY `#{report.stat}` #{report.sort}"
 
     fullQuery = [select, from, where, orderBy, limit].join " "
-    
-    console.log "fullQuery: ", fullQuery
     
     query = new Query 
       body: fullQuery
@@ -133,9 +115,8 @@ module.exports = (opts={}) ->
         data: rows
         columns: activeColumns
       
-      file = opts.outfilePath + report.file + ".tex"
-      
       # row outfile
-      fs.writeFileSync file, tableText, "utf8"
+      outFile = opts.outfile_path + "/" + report.file + ".tex"
+      fs.writeFileSync outFile, tableText, "utf8"
   
     return fullQuery
