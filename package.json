@@ -12,7 +12,8 @@
     "walk": "~2.2.1",
     "async": "~0.1.22",
     "underscore": "~1.4.3",
-    "moment": "~1.7.2"
+    "moment": "~1.7.2",
+    "mkdirp": "~0.3.4"
   },
   "devDependencies": {},
   "optionalDependencies": {},
