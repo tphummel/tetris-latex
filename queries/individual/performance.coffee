@@ -118,5 +118,4 @@ module.exports = (opts={}) ->
       # row outfile
       outFile = opts.outfile_path + "/" + report.file + ".tex"
       fs.writeFileSync outFile, tableText, "utf8"
-  
-    return fullQuery
+      process.stdout.write "."
