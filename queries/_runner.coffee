@@ -110,20 +110,14 @@ script_fn = (script, cb) ->
 game_type_fn = (game_type, cb) ->
   fn_vals.game_type = game_type
   sql.game_type = game_types.sql.replace "?", game_type
-  
-  sql_string = build_where_snippet sql
-
-  path = build_path fn_vals
-  
-  caption = build_caption fn_vals
 
   opts = 
-    caption: caption
-    where_sql_snippet: sql_string
-    outfile_path: path
+    caption: build_caption fn_vals
+    where_sql_snippet: build_where_snippet sql
+    outfile_path: build_path fn_vals
     limit: list_item_limit
 
-  query_fn = require(fn_vals.script_filename)
+  query_fn = require fn_vals.script_filename
   
   if fs.existsSync path
     query_fn opts, cb
