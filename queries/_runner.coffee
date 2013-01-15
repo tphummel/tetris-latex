@@ -111,10 +111,12 @@ game_type_fn = (game_type, cb) ->
   fn_vals.game_type = game_type
   sql.game_type = game_types.sql.replace "?", game_type
 
+  path = build_path fn_vals
+  
   opts = 
     caption: build_caption fn_vals
     where_sql_snippet: build_where_snippet sql
-    outfile_path: build_path fn_vals
+    outfile_path: path
     limit: list_item_limit
 
   query_fn = require fn_vals.script_filename
