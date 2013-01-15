@@ -1,6 +1,8 @@
 _       = require "underscore"
 fs      = require "fs"
+async   = require "async"
 mkdirp  = require "mkdirp"
+db      = require "../lib/db"
 
 majors = [
   {
@@ -8,14 +10,14 @@ majors = [
     values: ["all"]
   }
   {
-    name: "year"
-    sql: "YEAR(t.matchdate) = ?"
-    values: [2004,2007,2008,2009,2010,2011,2012]
-  }
-  {
     name: "player"
     sql: "GET_PLAYER_NAME(p.playerid,'','') = '?'"
     values: ["Dan", "Tom", "JD", "Jeran", "Guest", "Spirk"]
+  }
+  {
+    name: "year"
+    sql: "YEAR(t.matchdate) = ?"
+    values: [2004,2007,2008,2009,2010,2011,2012]
   }
   {
     name: "location"
@@ -66,52 +68,108 @@ game_types =
 outfile_path_root = "#{__dirname}/../parts/tables/"
 list_item_limit = 10
 
-for major in majors
+
+sql = {}
+fn_vals = {}
+
+major_fn = (major, cb) ->
+  console.log "major: ", major
+  fn_vals.major = major
   sql = {}
-  for major_value in major.values
-    if major.sql
-      sql.major = major.sql.replace "?", major_value
-    else
-      delete sql.major
-    
-    for minor in minors
-      
-      for minor_value in minor.values
-        if minor.sql
-          sql.minor = minor.sql.replace "?", minor_value
-        else
-          delete sql.major
-        
-        for script in scripts
-          script_filename = "#{__dirname}/individual/#{script}"
-          
-          for game_type in game_types.values
-            do (game_type) ->
-              caption = "#{game_type}-player Games"
-            
-              sql.game_type = game_types.sql.replace "?", game_type
-            
-              sql_pieces = [sql.major, sql.minor, sql.game_type]
-              sql_pieces = _.compact sql_pieces
-            
-              sql_string = sql_pieces.join " AND "
-            
-              path_pieces = [major.name, major_value, minor.name, minor_value, script, game_type+"p"]
-              path = outfile_path_root + path_pieces.join "/"
-              
-              opts = 
-                caption: caption
-                where_sql_snippet: sql_string
-                outfile_path: path
-                limit: list_item_limit
-              
-              exists = fs.existsSync path
-              
-              if exists
-                require(script_filename)(opts)
-              else
-                mkdirp path, (err) -> require(script_filename)(opts)
-            
-                  
-            
-                  
+  async.forEachSeries major.values, major_value_fn, (err) ->
+    console.log "---------------------------------"
+    cb err
+
+major_value_fn = (major_value, cb) ->
+  console.log "major_value: ", 
+  fn_vals.major_value = major_value
+  if fn_vals.major.sql
+    sql.major = fn_vals.major.sql.replace "?", major_value
+  else
+    delete sql.major
+
+  async.forEachSeries minors, minor_fn, cb
+
+minor_fn = (minor, cb) ->
+  console.log "minor: ", minor
+  fn_vals.minor = minor
+  async.forEachSeries minor.values, minor_value_fn, cb
+
+minor_value_fn = (minor_value, cb) ->
+  console.log "minor_value: ", minor_value
+  fn_vals.minor_value = minor_value
+  if fn_vals.minor.sql
+    sql.minor = fn_vals.minor.sql.replace "?", minor_value
+  else
+    delete sql.minor
+  
+  console.log "scripts: ", scripts
+  
+  async.forEachSeries scripts, script_fn, cb
+
+script_fn = (script, cb) ->
+  fn_vals.script_filename = "#{__dirname}/individual/#{script}"
+
+  async.forEachSeries game_types.values, game_type_fn, cb
+
+game_type_fn = (game_type, cb) ->
+  fn_vals.game_type = game_type
+  sql.game_type = game_types.sql.replace "?", game_type
+  
+  sql_string = build_where_snippet sql
+
+  path = build_path fn_vals
+  
+  caption = build_caption fn_vals
+
+  opts = 
+    caption: caption
+    where_sql_snippet: sql_string
+    outfile_path: path
+    limit: list_item_limit
+
+  query_fn = require(fn_vals.script_filename)
+  
+  console.log "opts before running: ", opts
+  
+  if fs.existsSync path
+    query_fn opts, cb
+  else
+    mkdirp path, (err) -> 
+      query_fn opts, cb
+
+build_where_snippet = (opts) ->
+  sql_pieces = [opts.major, opts.minor, opts.game_type]
+  sql_pieces = _.compact sql_pieces
+
+  sql_string = sql_pieces.join " AND "
+  return sql_string
+
+build_path = (opts) ->
+  path_pieces = [
+    opts.major.name
+    opts.major_value
+    opts.minor.name
+    opts.minor_value
+    opts.script
+    opts.game_type+"p"
+  ]
+  
+  path = outfile_path_root + path_pieces.join "/"
+  return path
+
+build_caption = (opts) ->
+  caption_pieces = []
+  unless opts.major.name is "all"
+    caption_pieces.push "#{opts.major.name}: #{opts.major_value}" 
+  unless opts.minor.name is "all"
+    caption_pieces.push "#{opts.minor.name}: #{opts.minor_value}"
+  
+  caption_pieces.push "#{opts.game_type}P Games"
+  
+  caption = caption_pieces.join ", "
+  return caption
+
+async.forEachSeries majors, major_fn, (major_err) ->
+  console.log "major callback, closing db"
+  db.closeConn()
