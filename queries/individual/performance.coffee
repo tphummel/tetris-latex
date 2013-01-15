@@ -108,8 +108,6 @@ module.exports = (opts, cb) ->
 
     fullQuery = [select, from, where, orderBy, limit].join " "
     
-    console.log "fullQuery: ", fullQuery
-    
     query = new Query 
       body: fullQuery
     
