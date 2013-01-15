@@ -1,6 +1,9 @@
+assert        = require "assert"
+
 fs            = require "fs"
 moment        = require "moment"
 _             = require "underscore"
+async         = require "async"
 
 Query         = require "../query"
 toLatexTable  = require "../toLatexTable"
@@ -74,7 +77,8 @@ applyColumnTemplates = (data, activeColumns) ->
       for row in data
         row[column.property] = column.template row[column.property]
 
-module.exports = (opts={}) ->
+module.exports = (opts, cb) ->
+  assert (_.isObject opts), "opts must be an object in queries/individual/performance, got: #{opts}"
   # opts passed in from above could be player, location, year, month, dow
   
   fields = []
@@ -92,7 +96,8 @@ module.exports = (opts={}) ->
   where = "WHERE t.matchid = p.matchid"
   limit = "LIMIT #{opts.limit}"
   
-  for report in reports
+
+  async.forEachSeries reports, (report, report_cb) ->
     
     for cond in report.conditions
       where += " AND #{cond}"
@@ -103,12 +108,15 @@ module.exports = (opts={}) ->
 
     fullQuery = [select, from, where, orderBy, limit].join " "
     
+    console.log "fullQuery: ", fullQuery
+    
     query = new Query 
       body: fullQuery
     
     query.run (err, rows) ->
       
       formattedRows = applyColumnTemplates rows, activeColumns
+      
       # ties logic, # records, second order calculations
       
       tableText = toLatexTable
@@ -119,3 +127,7 @@ module.exports = (opts={}) ->
       outFile = opts.outfile_path + "/" + report.file + ".tex"
       fs.writeFileSync outFile, tableText, "utf8"
       process.stdout.write "."
+      report_cb err
+  , (reports_err) ->
+    process.stdout.write ","
+    cb reports_err
