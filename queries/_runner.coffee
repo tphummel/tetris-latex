@@ -72,16 +72,15 @@ list_item_limit = 10
 sql = {}
 fn_vals = {}
 
+ts_start = new Date
+
 major_fn = (major, cb) ->
-  console.log "major: ", major
   fn_vals.major = major
   sql = {}
   async.forEachSeries major.values, major_value_fn, (err) ->
-    console.log "---------------------------------"
     cb err
 
 major_value_fn = (major_value, cb) ->
-  console.log "major_value: ", 
   fn_vals.major_value = major_value
   if fn_vals.major.sql
     sql.major = fn_vals.major.sql.replace "?", major_value
@@ -91,19 +90,15 @@ major_value_fn = (major_value, cb) ->
   async.forEachSeries minors, minor_fn, cb
 
 minor_fn = (minor, cb) ->
-  console.log "minor: ", minor
   fn_vals.minor = minor
   async.forEachSeries minor.values, minor_value_fn, cb
 
 minor_value_fn = (minor_value, cb) ->
-  console.log "minor_value: ", minor_value
   fn_vals.minor_value = minor_value
   if fn_vals.minor.sql
     sql.minor = fn_vals.minor.sql.replace "?", minor_value
   else
     delete sql.minor
-  
-  console.log "scripts: ", scripts
   
   async.forEachSeries scripts, script_fn, cb
 
@@ -129,8 +124,6 @@ game_type_fn = (game_type, cb) ->
     limit: list_item_limit
 
   query_fn = require(fn_vals.script_filename)
-  
-  console.log "opts before running: ", opts
   
   if fs.existsSync path
     query_fn opts, cb
@@ -171,5 +164,7 @@ build_caption = (opts) ->
   return caption
 
 async.forEachSeries majors, major_fn, (major_err) ->
+  ts_end = new Date
+  console.log "duration: #{ts_end-ts_start}"
   console.log "major callback, closing db"
   db.closeConn()
