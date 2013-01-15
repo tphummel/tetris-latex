@@ -2,7 +2,10 @@ assert        = require "assert"
 
 fs            = require "fs"
 moment        = require "moment"
+
 _             = require "underscore"
+_.mixin require('underscore.string').exports()
+
 async         = require "async"
 
 Query         = require "../query"
@@ -15,6 +18,7 @@ reports = [
       stat: "lines"
       sort: "desc"
     }
+    
   ]
 
 allColumns = [
@@ -56,6 +60,11 @@ allColumns = [
     property: "time"
     align: "r"
     sql: "p.`time` AS `time`"
+    template: (value) -> 
+      m = Math.floor value/60
+      s = value % 60
+      return m + ":" + _.lpad s, 2, "0"
+      
   }
   {
     title: "Win Rank" 
