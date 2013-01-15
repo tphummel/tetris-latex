@@ -161,6 +161,6 @@ build_caption = (opts) ->
 
 async.forEachSeries majors, major_fn, (major_err) ->
   ts_end = new Date
-  console.log "duration: #{ts_end-ts_start}"
+  console.log "duration: #{(ts_end-ts_start)/1000} s"
   console.log "major callback, closing db"
   db.closeConn()
