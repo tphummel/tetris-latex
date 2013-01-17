@@ -9,28 +9,28 @@ majors = [
     name: "all"
     values: ["all"]
   }
-  # {
-  #   name: "player"
-  #   sql: "GET_PLAYER_NAME(p.playerid,'','') = '?'"
-  #   values: ["Dan", "Tom", "JD", "Jeran", "Guest", "Spirk"]
-  # }
-  # {
-  #   name: "year"
-  #   sql: "YEAR(t.matchdate) = ?"
-  #   values: [2004,2007,2008,2009,2010,2011,2012]
-  # }
-  # {
-  #   name: "location"
-  #   sql: "GET_LOCATION_NAME(t.location, 'ADDY') = '?'"
-  #   values: [
-  #     "1217 (Pomona, CA)"
-  #     "23C (Pomona, CA)"
-  #     "Mt. Johnson (Rancho Cucamonga, CA)"
-  #     "425 (Upland, CA)"
-  #     "207E (Encino, CA)"
-  #     "14211 (Sherman Oaks, CA)"
-  #   ]
-  # }
+  {
+    name: "player"
+    sql: "GET_PLAYER_NAME(p.playerid,'','') = '?'"
+    values: ["Dan", "Tom", "JD", "Jeran", "Guest", "Spirk"]
+  }
+  {
+    name: "year"
+    sql: "YEAR(t.matchdate) = ?"
+    values: [2004,2007,2008,2009,2010,2011,2012]
+  }
+  {
+    name: "location"
+    sql: "GET_LOCATION_NAME(t.location, 'ADDY') = '?'"
+    values: [
+      "1217 (Pomona, CA)"
+      "23C (Pomona, CA)"
+      "Mt. Johnson (Rancho Cucamonga, CA)"
+      "425 (Upland, CA)"
+      "207E (Encino, CA)"
+      "14211 (Sherman Oaks, CA)"
+    ]
+  }
 ]
 
 
@@ -39,24 +39,26 @@ minors = [
     name: "all"
     values: ["all"]
   }
-  # {
-  #   name: "month"
-  #   values: ["January", "February", "March", "April", "May", "June"]
-  # }
+  {
+    name: "month"
+    sql: "MONTHNAME(t.matchdate) = '?'"
+    values: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  }
   # {
   #   name: "dom"
+  #   sql: "DAYOFMONTH(t.matchdate) = ?"
   #   values: []
   # }
-  # {
-  #   name: "dow"
-  #   sql: "DAYNAME(t.matchdate) = '?'"
-  #   values: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-  # }
+  {
+    name: "dow"
+    sql: "DAYNAME(t.matchdate) = '?'"
+    values: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  }
 ]
 
 # dom = 1
 # while dom <= 31
-#   minors.dom.push dom
+#   minors[2].values.push dom
 #   dom += 1
 
 scripts = ["performance"] # ["summary", "performance", "time-span", "match-span", "match-streak"]
@@ -118,6 +120,7 @@ game_type_fn = (game_type, cb) ->
     where_sql_snippet: build_where_snippet sql
     outfile_path: path
     limit: list_item_limit
+    fn_vals: fn_vals
 
   query_fn = require fn_vals.script_filename
   
