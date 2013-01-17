@@ -17,6 +17,7 @@ reports = [
       conditions: []
       stat: "lines"
       sort: "desc"
+      title_part: "Most Lines"
     }
     
   ]
@@ -64,7 +65,6 @@ allColumns = [
       m = Math.floor value/60
       s = value % 60
       return m + ":" + _.lpad s, 2, "0"
-      
   }
   {
     title: "Win Rank" 
@@ -104,7 +104,6 @@ module.exports = (opts, cb) ->
   from = "FROM playermatch p, tntmatch t"
   where = "WHERE t.matchid = p.matchid"
   limit = "LIMIT #{opts.limit}"
-  
 
   async.forEachSeries reports, (report, report_cb) ->
     
@@ -126,9 +125,13 @@ module.exports = (opts, cb) ->
       
       # ties logic, # records, second order calculations
       
+      title = report.title_part + ", " + opts.caption
+      
       tableText = toLatexTable
         data: rows
         columns: activeColumns
+        useLongTable: false
+        title: title
       
       # row outfile
       outFile = opts.outfile_path + "/" + report.file + ".tex"
