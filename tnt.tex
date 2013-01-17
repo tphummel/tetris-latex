@@ -1,5 +1,6 @@
 \documentclass[a4paper,twoside,titlepage]{book}
 %begin preamble - main document spec info goes here
+\usepackage{booktabs}
 \usepackage{mathptmx}
 \usepackage{makeidx}
 \usepackage{longtable}
@@ -10,7 +11,7 @@
 \makeindex
 %\makeglossaries
 \title{The New Tetris: The First Ten Years 
-\\(2004-2014)}
+\\(2004-2013)}
 \author{Tom Hummel\thanks{J.D. Tawney}}
 \date{\today}
 \setcounter{tocdepth}{0}
@@ -18,14 +19,14 @@
 \begin{document}
   \maketitle
   \tableofcontents \newpage
-  \input{parts/preface/index}
-  \input{parts/rules/index}
-  \input{parts/history/index}
-  \input{parts/strategy/index}
-  \input{parts/essays/index}
-  \input{parts/records/index}
+  % \input{parts/preface/index}
+  % \input{parts/rules/index}
+  % \input{parts/history/index}
+  % \input{parts/strategy/index}
+  % \input{parts/essays/index}
+  \input{parts/records/performance}
   
-  \input{parts/appendix/index}
+  % \input{parts/appendix/index}
 
   \addcontentsline{toc}{part}{Index}
   \printindex
