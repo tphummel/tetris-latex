@@ -11,7 +11,7 @@
     "coffee-script": "~1.4.0",
     "walk": "~2.2.1",
     "async": "~0.1.22",
-    "underscore": "~1.4.3",
+    "underscore": "~1.12.1",
     "moment": "~1.7.2",
     "mkdirp": "~0.3.4",
     "underscore.string": "~2.3.1",
